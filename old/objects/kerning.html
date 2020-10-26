@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>RoboFab Objects: RKerning</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="../howto/index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div id="titlepic">
+<img src="../img/offdrawmodel_11.gif" alt="" border="0" />
+</div>
+<div class="content">
+<h1>RoboFab RKerning</h1>
+<h3>Usage</h3>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Kerning object<br>#&nbsp; &nbsp; usage examples<br> <br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">kerning</span><br> <br># getting a value from the kerning dictionary<br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">kerning</span>[(<span class="py_str">'V'</span>, <span class="py_str">'A'</span>)]<br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">kerning</span>[(<span class="py_str">'T'</span>, <span class="py_str">'X'</span>)]<br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">kerning</span>.<span class="py_key">keys</span>()<br> <br></pre></div><div class="pythonsourcetitle"><a href="examples/usageKerning.py" target="new"><strong>➔ Download this.</strong></a></div>
+<div class="pythonoutput"><pre>&lt; <span class="py_key">RKerning</span> <span class="py_res">for</span> <span class="py_key">Mailer</span>-<span class="py_key">Regular</span> &gt;<br> -<span class="py_num">123</span><br> <span class="py_key">None</span><br> [(<span class="py_str">'X'</span>, <span class="py_str">'emdash'</span>), <br>&nbsp; &nbsp; (<span class="py_str">'K'</span>, <span class="py_str">'v'</span>),<br>&nbsp; &nbsp; (<span class="py_str">'two'</span>, <span class="py_str">'perthousand'</span>),<br>&nbsp; &nbsp; (<span class="py_str">'guilsinglleft'</span>, <span class="py_str">'a'</span>),<br>&nbsp; &nbsp; ... <span class="py_key">etc</span>.]</pre></div>
+<h3>Description</h3>
+<p>
+	RKerning is a dictionary of kerning values. RFont makes a RKerning object when it is created and makes available as aFont.kerning attribute. The keys are tuples of the glyphs listed by their names: ('T', 'e'), ('V', 'A') etc. <strong>None</strong> is returned if the pair does not exist, rather than raising an IndexError. The parent of a kerning object is usually a Font.
+</p>
+<h3>Methods</h3>
+<p>
+</p>
+<ul>
+	<li><strong>add(value)</strong>: add value to all kerning pairs.</li>
+	<li><strong>asDict()</strong>: return the object as a plain dictionary.</li>
+	<li><strong>clear()</strong>: clear all the kerning (why would you want to do that?)</li>
+	<li><strong>combine(kerningDicts, overwriteExisting=True)</strong>: combine two or more kerning dictionaries. Overwrite exsisting duplicate pairs if overwriteExisting=True</li>
+	<li><strong>eliminate(leftGlyphsToEliminate=None, rightGlyphsToEliminate=None, analyzeOnly=False)</strong>: eliminate pairs containing a left glyph that is in the leftGlyphsToEliminate list
+		or a right glyph that is in the rightGlyphsToELiminate list.
+		sideGlyphsToEliminate can be a string: 'a' or list: ['a', 'b'].
+		analyzeOnly will not remove pairs. it will return a count
+	of all pairs that would be removed.</li>
+	<li><strong>explodeClasses(leftClassDict=None, rightClassDict=None, analyzeOnly=False)</strong>: turn class kerns into real kerning pairs. classes should
+		be defined in dicts: {'O':['C', 'G', 'Q'], 'H':['B', 'D', 'E', 'F', 'I']}.
+	analyzeOnly will not remove pairs. it will return a count of all pairs that would be added</li>
+	<li><strong>get(aPair)</strong>: get a value. return None if the pair does not exist.</li>
+	<li><strong>getAverage()</strong>: return average of all kerning pairs </li>
+	<li><strong>getExtremes()</strong>: return the lowest and highest kerning values.</li>
+	<li><strong>getLeft(glyphName)</strong>: Return a list of kerns with glyphName as left character. </li>
+	<li><strong>getRight(glyphName)</strong>: Return a list of kerns with glyphName as right character. </li>
+	<li><strong>has_key(pair)</strong>: returns True if it has the pair.</li>
+	<li><strong>implodeClasses(leftClassDict=None, rightClassDict=None, analyzeOnly=False)</strong>:  condense the number of kerning pairs by applying classes. This will eliminate all pairs containg the classed glyphs leaving
+		pairs that contain the key glyphs behind. analyzeOnly will not
+	remove pairs. it will return a count of all pairs that would be removed.</li>
+	<li><strong>importAFM(path, clearExisting=True)</strong>: Import kerning pairs from an AFM file. clearExisting=True will clear all exising kerning</li>
+	<li><strong>
+		interpolate(sourceDictOne, sourceDictTwo, value, clearExisting=True)</strong>: interpolate the kerning between sourceDictOne and sourceDictTwo. clearExisting will clear existing
+	kerning first.</li>
+	<li><strong>items()</strong>: return a list of (pair, value) tuples.</li>
+	<li><strong>keys()</strong>: returns a lust of available pairs.</li>
+	<li><strong>minimize(minimum=10)</strong>: eliminate pairs with value less than minimum</li>
+	<li><strong>
+		occurrenceCount(glyphsToCount)</strong>: return a dict with glyphs as keys and the number of occurances of that glyph in the kerning pairs as the value
+	glyphsToCount can be a string: 'a' or list: ['a', 'b']</li>
+	<li><strong>
+	remove(pair)</strong>: remove a kerning pair</li>
+	<li><strong>round(multiple=10)</strong>: round the kerning pair values to increments of multiple</li>
+	<li><strong>scale(value)</strong>: scale all kernng pairs by value</li>
+	<li><strong>swapNames(swapTable)</strong>: change glyph names in all kerning pairs based on swapTable:
+		<div class="pythonoutput"><pre><span class="py_key">swapTable</span> = {<span class="py_str">'BeforeName'</span>:<span class="py_str">'AfterName'</span>, }</pre></div>
+	</li>
+	<li><strong>update(kerningDict)</strong>: replace kerning data with the data in the given kerningDict.</li>
+	<li><strong>values()</strong>: return a list of kerning values</li>
+</ul>
+</div>
+</body></html>

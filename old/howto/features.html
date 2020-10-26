@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How to: OpenType features in UFO</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+
+
+
+
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+
+<p class="menu">
+	<a href="old/hints.html">Hinting in UFO</a><br />
+</p>
+
+
+</div>
+
+
+
+
+<div class="content">
+<h1>OpenType features in UFO</h1>
+<p>
+	
+	The UFO specification does not have an explicit place or format for OpenType features. This has lead to some misunderstanding that it is not possible to work with OpenType features in UFO. This is not the case. Feature data can be stored in the ufo and manipulated. For instance, FontLab exports and imports feature data to and from UFO, storing the data in the font.lib (font.ufo/lib.plist) at "com.robofab.features". This page describes how the data is currently managed. It's likely this will improve in the future,
+	
+</p>
+<h2>Features</h2>
+<p>
+	Feature data in UFO is stored in font.lib['com.robofab.features'], This is a dictionary with the 4 letter feature tag as key and the feature text as value.
+	As of RoboFab version 1.1.2, the order of the features is stored  in font.lib['com.robofab.featureorder']. Older UFO's without this entry will get their features imported in alphabetical order. OpenType classes are stored in font.groups (ufo/groups.plist).
+	
+</p>
+<div class="pythonsource"><pre># Getting to feature data in a UFO.<br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">OpenFont</span><br> <br><span class="py_key">path</span> = <span class="py_str">"A/path/to/font.ufo"</span><br><span class="py_key">f</span> = <span class="py_key">OpenFont</span>(<span class="py_key">path</span>)<br> <br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">lib</span>.<span class="py_key">keys</span>()<br>&gt;&gt;&gt; [<span class="py_str">"com.robofab.features"</span>]&nbsp; &nbsp; # so this ufo has some features.<br> <br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">lib</span>[<span class="py_str">"com.robofab.features"</span>]<br>&gt;&gt;&gt; [<span class="py_str">'ss01'</span>, <span class="py_str">'liga'</span>, <span class="py_str">'dlig'</span>]<br> <br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">lib</span>[<span class="py_str">"com.robofab.features"</span>][<span class="py_str">'liga'</span>]<br>&gt;&gt;&gt;<span class="py_com"> </span><span class="py_com">"</span><span class="py_key">feature</span> <span class="py_key">liga</span> {<br>&nbsp; &nbsp; <span class="py_key">sub</span> <span class="py_key">f</span> <span class="py_key">f</span> <span class="py_key">i</span> <span class="py_key">by</span> <span class="py_key">ffi</span>;<br>&nbsp; &nbsp; <span class="py_key">sub</span> <span class="py_key">f</span> <span class="py_key">f</span> <span class="py_key">l</span> <span class="py_key">by</span> <span class="py_key">ffl</span>;<br>} <span class="py_key">liga</span>;<span class="py_com">"</span><br> <br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">lib</span>[<span class="py_str">"com.robofab.featureorder"</span>]<br>&gt;&gt;&gt; [<span class="py_str">'liga'</span>, <span class="py_str">'dlig'</span>, <span class="py_str">'ss01'</span>]</pre></div>
+<p>
+	Note that the feature data in the lib is used for storage in UFO. This data won't be available in robofab font objects in FontLab, where it makes more sense to address the FL objects directly. <a href="http://dev.fontlab.net/flpydoc/">Check the FL docs here.</a>
+</p>
+<div class="pythonsource"><pre># Getting to feature data in a FontLab <br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br> <br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br> <br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">naked</span>().<span class="py_key">features</span><br>&gt;&gt;&gt; [&lt;<span class="py_key">TagObject</span>: <span class="py_key">tag</span>=<span class="py_key">liga</span>, <span class="py_key">value</span>=<span class="py_key">feature</span> <span class="py_key">ln</span>..., <span class="py_key">parent</span>: <span class="py_str">'MyFont'</span>&gt;,<br>&lt;<span class="py_key">TagObject</span>: <span class="py_key">tag</span>=<span class="py_key">dlig</span>, <span class="py_key">value</span>=<span class="py_key">feature</span> <span class="py_key">ln</span>..., <span class="py_key">parent</span>: <span class="py_str">'MyFont'</span>&gt;]<br># these are raw FontLab feature objects.</pre></div>
+<h2>Kerning</h2>
+<p>
+	Kerning is stored in font.kerning, an object which behaves like a dictionary. A (name, name) tuple is the key. This can either be a glyph name or a group name. A number is the value. Can be floating point or integer.
+</p>
+<div class="pythonsource"><pre># showing where the data lives in the RoboFab objects.<br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br> <br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br> <br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">kerning</span>.<span class="py_key">keys</span>()<br>&gt;&gt;&gt; [(<span class="py_str">'a'</span>, <span class="py_str">'v'</span>), (<span class="py_str">'MMK_L_baseserif'</span>, <span class="py_str">'n'</span>)]<br># these are pairs.<br> <br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">kerning</span>[(<span class="py_str">'MMK_L_baseserif'</span>, <span class="py_str">'n'</span>)]<br>&gt;&gt;&gt; -<span class="py_num">100</span></pre></div>
+<h2>Why no RoboFab objects for features?</h2>
+<p>
+	Features are tricky things. On one level they're stored as simple pieces of text. On another level they're sets of complex rules which need to be executed. When the RoboFab API and UFO spec started, writing an interpreter for feature language was too far off. So we chose for a loose method of storing the data, just bits of text, which would get the data where it needed to go and back again. And leave the interpreting and executing to other applications.
+</p>
+</div>
+</body></html>

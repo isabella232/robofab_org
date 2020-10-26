@@ -1,0 +1,51 @@
+
+@font-face {
+	font-family: "HeadlineLight";
+	src: url("fonts/Nitti Basic Light.eot?") format("embedded-opentype"),
+	     url("fonts/Nitti Basic Light.woff") format("woff"),
+	     url("fonts/Nitti Basic Light.svg") format("svg"),
+	     url("fonts/Nitti Basic Light.otf") format("opentype");
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "HeadlineNormal";
+	src: url("fonts/Nitti Basic Normal.eot?") format("embedded-opentype"),
+	     url("fonts/Nitti Basic Normal.woff") format("woff"),
+	     url("fonts/Nitti Basic Normal.svg") format("svg"),
+	     url("fonts/Nitti Basic Normal.otf") format("opentype");
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "HeadlineMedium";
+	src: url("fonts/Nitti Basic Medium.eot?") format("embedded-opentype"),
+	     url("fonts/Nitti Basic Medium.woff") format("woff"),
+	     url("fonts/Nitti Basic Medium.svg") format("svg"),
+	     url("fonts/Nitti Basic Medium.otf") format("opentype");
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "HeadlineBold";
+	src: url("fonts/Nitti Basic Bold.eot?") format("embedded-opentype"),
+	     url("fonts/Nitti Basic Bold.woff") format("woff"),
+	     url("fonts/Nitti Basic Bold.svg") format("svg"),
+	     url("fonts/Nitti Basic Bold.otf") format("opentype");
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "HeadlineBlack";
+	src: url("fonts/Nitti Basic Black.eot?") format("embedded-opentype"),
+	     url("fonts/Nitti Basic Black.woff") format("woff"),
+	     url("fonts/Nitti Basic Black.svg") format("svg"),
+	     url("fonts/Nitti Basic Black.otf") format("opentype");
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: normal;
+}

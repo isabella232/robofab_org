@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Glyphnames versus GLIF-names</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div class="content">
+<h1>Glyphnames versus GLIF-names</h1>
+<p>
+	The names of the GLIF xml files, in the UFO are related to the glyph names. It used to be a 1:1 relationship, but then glyphnames grew really long and some file systems don't support long filenames. So something had to give.
+</p>
+<h2>GlyphNamingSchemes</h2>
+<p>
+	The objectsFL.RFont.writeUFO() method can take a special callback function in order to convert the actual glyphname to a suitable filename. The goal is to create unique filenames so that glyphs won't overwrite each other's exports, also comply to certain filesystems which require filenames to be shorter than a certain number of characters, while retaining a high level of human-readability. Have a look at robofab/tools/glyphNameSchemes.py for the currently available callbacks. With glyphNameSchemes, the glyphName and the glif filename no longer have a direct relationship.
+</p>
+<h3>glyphNameToShortFileName(glyphName, glyphSet)</h3>
+<p>
+	Features a garuanteed maximum filename (default 31 characters) for really long glyphnames, and clash testing.
+</p>
+<ul>
+	<li>all non-ascii characters are converted to "_" (underscore), including "."</li>
+	<li>all glyphnames which are too long are truncated and a hash is added at the end</li>
+	<li>the hash is generated from the whole glyphname</li>
+	<li>finally, the candidate glyphname is checked against the contents.plist
+	and a incrementing number is added at the end if there is a glyph with that name already.</li>
+</ul>
+<p>
+	glyphNameToShortFileName is the <strong>default naming scheme</strong> for exporting UFOs from FontLab. For most everyday use, this callback does all the work and there is no need to tweak it. Below are some examples to give you an idea of what the callback does:
+</p>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Glifnames howto<br>#&nbsp; &nbsp; glyphNameToShortFileName examples<br> <br><br># examples of glyphname to glif name transformations<br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">tools</span>.<span class="py_key">glyphNameSchemes</span> <span class="py_res">import</span> <span class="py_key">glyphNameToShortFileName</span><br> <br># a short name<br><span class="py_res">print</span> <span class="py_key">glyphNameToShortFileName</span>(<span class="py_str">"accent"</span>, <span class="py_key">None</span>)<br> <br># a short name, starting with capital letter<br><span class="py_res">print</span> <span class="py_key">glyphNameToShortFileName</span>(<span class="py_str">"Accent"</span>, <span class="py_key">None</span>)<br> <br># a really long name - note the hexadecimal hash at the end<br><span class="py_res">print</span> <span class="py_key">glyphNameToShortFileName</span>(<span class="py_str">"this_is_a_very_long_glyph_name.altswash2"</span>, <span class="py_key">None</span>)<br> <br># a name with a period in it, 1<br><span class="py_res">print</span> <span class="py_key">glyphNameToShortFileName</span>(<span class="py_str">"a.alt"</span>, <span class="py_key">None</span>)<br> <br># a name with a period in it, 2<br><span class="py_res">print</span> <span class="py_key">glyphNameToShortFileName</span>(<span class="py_str">".notdef"</span>, <span class="py_key">None</span>)<br></pre></div><div class="pythonsourcetitle"><a href="examples/usageGlifnames.py" target="new"><strong>➔ Download this.</strong></a></div>
+<div class="pythonoutput"><pre><span class="py_str">"accent.glif"</span><br> <span class="py_str">"A_ccent.glif"</span><br> <span class="py_str">"this_is_a_very_lon340a8fa5.glif"</span><br> <span class="py_str">"a_alt.glif"</span><br> <span class="py_str">"_notdef.glif"</span><br> <span class="py_str">"_nic_de.glif"</span></pre></div>
+</div>
+</body></html>

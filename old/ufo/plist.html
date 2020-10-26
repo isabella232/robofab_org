@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>RoboFab UFO</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+
+
+
+
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+
+<p class="menu">
+	<a href="../howto/index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<div class="content">
+
+<h1>Property List File Format (.plist)</h1>
+<p>A Property List (.plist) file uses a simple <span class="caps">XML</span> format, defined by Apple. The <span class="caps">DTD</span><br />
+is at <a href="http://www.apple.com/DTDs/PropertyList-1.0.dtd"><a href="http://www.apple.com/DTDs/PropertyList-1.0.dtd">http://www.apple.com/DTDs/PropertyList-1.0.dtd</a></a>. We use it in the<br />
+<a href="specification.html">Unified Font Object</a> and the <a href="glif.html">Glyph Interchange Format</a>.</p>
+<p>It’s a generic format supporting basic data types and structures. It can<br />
+	contain arrays, dictionaries, integers, floats, strings and arbitrary binary<br />
+	data. Dictionary keys are restricted to strings. Apart from this restriction,<br />
+	Plist objects map nicely to the analogous Python types, for example<br />
+	dictionary values and array items can be any other type supported by plist.<br />
+They can be arbitrarily nested.</p>
+<p>To read and write plist data we use the robofab.plistlib module,<br />
+	which is an improved version of the plistlib.py that ships with<br />
+	MacPython 2.3. It is very easy to use: robofab.plistlib.readPlist(path)<br />
+	will give you the top level object inside the plist file. To create a plist<br />
+file do:</p>
+<p>{{{<br />
+	#!python<br />
+	robofab.plistlib.writePlist(topLevelObject, path)<br />
+}}}</p>
+<p>The object passed to writePlist() must only contain types supported by plist, any<br />
+dictionaries must use strings as keys.</p>
+<p>Unicode strings are fully supported. plistlib.py uses <span class="caps">UTF</span>-8 as the file’s<br />
+encoding.</p>
+</div>
+</body></html>

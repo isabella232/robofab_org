@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How to: Generate Fonts</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+
+
+
+
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+
+
+</div>
+
+
+
+
+<div class="content">
+<h1>Generating Fonts</h1>
+<p>
+	A RFont object in FontLab can call FontLab to generate fonts. Generating fonts can be time consuming, even when all the right parameters are set. So this is a nice candidate for automation. First of all a generator script will give you consistency between generations and versions. But also it means you can set a machine to work to generate batches of fonts and focus on more creative tasks.
+</p>
+<p>
+	Note: the generate method only calls on FontLab to generate the fonts in a particular format. It does not prepare the font data for that specific format, i.e. for example when you're generating for PC Truetype, generate() won't select the appropriate encodings or special windows flags. You need to do that.
+</p>
+<h3>RFont.generate(outputType, path=None)</h3>
+<p>
+	Generate the font. outputType is the type of font to output. An overview of available output Types in FontLab:
+</p>
+<ul>
+	<li>
+		<strong>pctype1</strong>:PC Type 1 font (binary/PFB)
+	</li>
+	<li>
+		<strong>pcmm</strong>: PC MultipleMaster font (PFB)
+	</li>
+	<li>
+		<strong>pctype1ascii</strong>: PC Type 1 font (ASCII/PFA)
+	</li>
+	<li>
+		<strong>pcmmascii</strong>: PC MultipleMaster font (ASCII/PFA)
+	</li>
+	<li>
+		<strong>mactype1</strong>:Mac Type 1 font (generates suitcase and LWFN file)
+	</li>
+	<li>
+		<strong>otfcff</strong>: PS OpenType (CFF-based) font (OTF)
+	</li>
+	<li>
+		<strong>otfttf</strong>: PC TrueType/TT OpenType font (TTF)
+	</li>
+	<li>
+		<strong>macttf</strong>: Mac TrueType font (generates suitcase)
+	</li>
+	<li>
+		<strong>macttdfont</strong>: Mac TrueType font (generates suitcase with resources in data fork)
+	</li>
+	<li>
+		(doc adapted from http://dev.fontlab.net/flpydoc/)
+	</li>
+</ul>
+<h3>Notes</h3>
+<p>
+	<strong>path</strong> can be a directory or a directory file name combo:
+</p>
+<ul>
+	<li>
+		path="DirectoryA/DirectoryB"
+	</li>
+	<li>
+		path="DirectoryA/DirectoryB/MyFontName"
+	</li>
+	<li>
+		path="DirectoryA/DirectoryB/ < filename >"
+	</li>
+</ul>
+<p>
+	If no <strong>path</strong> is given, the file will be output in the same directory as the vfb file. If no <strong>filename</strong> is given, the filename will be the vfb file name with the appropriate suffix.
+</p>
+<h2>Examples</h2>
+<p>
+	FontLab can generate many different formats for different platforms. Please refer to the FontLab manual for specifics. Some formats generate several files, others only one. Some formats are not available in all versions of FontLab.
+</p>
+
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Generatefonts howto<br>#&nbsp; &nbsp; usage examples<br> <br><br><span class="py_res">import</span> <span class="py_key">os</span>.<span class="py_key">path</span><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br> <br><span class="py_key">font</span> = <span class="py_key">CurrentFont</span>()<br><span class="py_key">path</span> = <span class="py_key">font</span>.<span class="py_key">path</span><br><span class="py_key">dir</span>, <span class="py_key">fileName</span> = <span class="py_key">os</span>.<span class="py_key">path</span>.<span class="py_key">split</span>(<span class="py_key">path</span>)<br><span class="py_key">path</span> = <span class="py_key">os</span>.<span class="py_key">sep</span>.<span class="py_key">join</span>([<span class="py_key">dir</span>, <span class="py_key">font</span>.<span class="py_key">info</span>.<span class="py_key">fullName</span>])<br><span class="py_key">font</span>.<span class="py_key">generate</span>(<span class="py_str">'mactype1'</span>, <span class="py_key">path</span>)<br></pre></div><div class="pythonsourcetitle"><a href="examples/usageGeneratefonts.py" target="new"><strong>➔ Download this.</strong></a></div>
+</div>
+</body></html>

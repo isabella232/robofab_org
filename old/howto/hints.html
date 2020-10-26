@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How to: Some hinting in UFO</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+
+
+
+
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+<p class="menu">
+	<a href="features.html"> OpenType Features in UFO</a><br />
+</p>
+
+
+</div>
+
+
+
+
+<div class="content">
+<h1>Some hinting in UFO</h1>
+<p>
+	
+	Regular postscript hints can be exported to UFO from FontLab. The zone information is stored in the glyph.lib and can easily be interpreted. TrueType hints and link information are not exported. The blues values are not exported either.
+	
+</p>
+<p>
+	When you generate a UFO in FontLab, Hint export is switched off by default. By setting the _supportHints flag on a font object before exporting it, the PS hint info will be exported. Here is a modified version of a simple UFO exporting script for FontLab:
+</p>
+
+
+<div class="pythonsource"><pre>#FLM: Export Current Font to UFO Format<br> <br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">tools</span>.<span class="py_key">glyphNameSchemes</span> <span class="py_res">import</span> <span class="py_key">glyphNameToShortFileName</span><br> <br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br><span class="py_key">f</span>.<span class="py_key">_supportHints</span> = <span class="py_key">True</span>&nbsp; &nbsp; # this switches the hinting on<br><span class="py_key">f</span>.<span class="py_key">writeUFO</span>(<span class="py_key">doProgress</span>=<span class="py_key">True</span>, <span class="py_key">glyphNameToFileNameFunc</span>=<span class="py_key">glyphNameToShortFileName</span>)<br><span class="py_res">print</span> <span class="py_str">'DONE!'</span></pre></div>
+<h2>Now what?</h2>
+<p>
+	Now that the hints are in the UFO, you can get to them with the glif.lib,
+</p>
+<div class="pythonsource"><pre><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">OpenFont</span><br><span class="py_key">path</span> = <span class="py_str">"/some/ufo/path/MyFont.ufo"</span><br><span class="py_key">f</span> = <span class="py_key">OpenFont</span>(<span class="py_key">path</span>)<br> <br><span class="py_res">def</span> <span class="py_def">getHints</span>(<span class="py_key">self</span>, <span class="py_key">glyph</span>):<br>&nbsp; &nbsp; <span class="py_str">"""Retrieve hints from the glyph lib. This will return two lists:<br>&nbsp; &nbsp; &nbsp; &nbsp; one for the horizontal zones<br>&nbsp; &nbsp; &nbsp; &nbsp; one for the vertical zones.<br>&nbsp; &nbsp; &nbsp; &nbsp; If no hints are defined in this glyph,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; or the lib is empty,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; two empty lists will be returned.<br>&nbsp; &nbsp; &nbsp; &nbsp; """</span><br>&nbsp; &nbsp; <span class="py_res">if</span> <span class="py_key">self</span>.<span class="py_key">hintKey</span> <span class="py_res">in</span> <span class="py_key">glyph</span>.<span class="py_key">lib</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">h</span> = <span class="py_key">glyph</span>.<span class="py_key">lib</span>[<span class="py_key">self</span>.<span class="py_key">hintKey</span>].<span class="py_key">get</span>(<span class="py_str">'hhints'</span>, [])<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">v</span> = <span class="py_key">glyph</span>.<span class="py_key">lib</span>[<span class="py_key">self</span>.<span class="py_key">hintKey</span>].<span class="py_key">get</span>(<span class="py_str">'vhints'</span>, [])<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">h</span>.<span class="py_key">sort</span>()<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">v</span>.<span class="py_key">sort</span>()<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">return</span> <span class="py_key">h</span>, <span class="py_key">v</span><br>&nbsp; &nbsp; <span class="py_res">return</span> [], []<br> <br># using this function, it's easy to get the hints out.<br><span class="py_key">h</span>, <span class="py_key">v</span> = <span class="py_key">getHints</span>(<span class="py_key">f</span>[<span class="py_str">'a'</span>])<br><span class="py_res">print</span> <span class="py_str">"h"</span>, <span class="py_key">h</span><br>&gt;&gt;&gt; <span class="py_key">h</span> [{<span class="py_str">'position'</span>: <span class="py_num">0</span>, <span class="py_str">'width'</span>: <span class="py_num">25</span>}, {<span class="py_str">'position'</span>: <span class="py_num">665</span>, <span class="py_str">'width'</span>: <span class="py_num">23</span>}]<br> <br><span class="py_res">print</span> <span class="py_str">"v"</span>, <span class="py_key">v</span><br>&gt;&gt;&gt; <span class="py_key">v</span> [{<span class="py_str">'position'</span>: <span class="py_num">176</span>, <span class="py_str">'width'</span>: <span class="py_num">45</span>}, {<span class="py_str">'position'</span>: <span class="py_num">639</span>, <span class="py_str">'width'</span>: <span class="py_num">46</span>}]</pre></div>
+<p>
+	The hinting information consists of a list of dictionaries, each with a "position" and "width" key. The value is a number representing the size of the zone.
+</p>
+<h2>Blues?</h2>
+<p>
+	If there is interest in expanding the support for hints in RoboFab, for instance the blues values and so on, drop us a line on the Robofab Google group. Sample code showing how to get and set the values you want would be good.
+</p>
+</div>
+</body></html>

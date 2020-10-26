@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How to get to FontLab internals</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+
+
+
+
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+
+</div>
+
+
+
+
+<div class="content">
+<h1>How to get to FontLab's internals</h1>
+<p>
+	If you're using RoboFab in FontLab, it can happen that you need to access a method or attribute of a glyph or font object which does not seem to have an equivalent in RoboFab. What to do?
+</p>
+<h3>Get Naked</h3>
+<p>
+	RoboFab Glyph and Font objects have a special method, <strong>naked()</strong> which returns the actual, low level FontLab object. This object can then be used with the documented FontLab methods and attributes. The methods and attributes of these FontLab objects are very different from RoboFab.
+</p>
+
+<div class="pythonsource"><pre><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br><span class="py_res">print</span> <span class="py_key">f</span><br># this is the high level RoboFab object<br> <br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">naked</span>()<br># this is the low level FontLab object, not a part of RoboFab</pre></div>
+<div class="pythonoutput"><pre>&lt; <span class="py_key">RFont</span> <span class="py_key">font</span> <span class="py_res">for</span> <span class="py_key">TemplatefontPro</span> <span class="py_key">Rg</span> <span class="py_key">Regular</span> &gt;<br> &lt; <span class="py_key">Font</span> <span class="py_str">'TemplatefontPro Rg Regular'</span> &gt;</pre></div>
+</div>
+</body></html>

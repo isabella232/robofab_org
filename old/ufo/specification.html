@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>RoboFab UFO</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+    
+	
+
+	
+
+ 
+
+	<div class="leftcontent">
+		<p class="menu">
+			<a href="../index.html">
+				Home
+			</a>
+ 			
+			 			
+		</p>
+		
+		<p class="menu">
+			<a href="../howto/index.html">
+				How to's
+			</a>
+			<br />
+			<a href="../talks09/index.html">
+				Step by step intro
+			</a>
+			<br />
+			<a href="../objects/index.html">
+				Object reference
+			</a>
+
+		</p>
+
+
+
+
+ 
+
+
+
+
+
+
+	
+	
+	
+	
+
+
+ 
+
+ 
+
+
+	</div>
+	
+
+
+
+    
+    
+    
+    <div class="content">
+ 
+
+				<h1><span class="caps">UFO</span> file format specification 1.0</h1>
+
+<p>The Unified Font Object (or <span class="caps">UFO</span>) is a file format for font and glyph related data. <span class="caps">UFO</span> intends to store all font related data in readable, standardised <span class="caps">XML</span> files.</p>
+
+<p>The <span class="caps">UFO</span> format is:</p>
+
+<ul>
+<li>a format for storing font sources during development</li>
+<li>an interchange format for various font applications where compiled binary formats do not retain enough information</li>
+<li>a future proof format for archiving font projects, independent of a specific application or tool</li>
+<li>extensible: arbitrary data can be stored on glyph and font level</li>
+<li>can easily be used with cvs or svn based versioning tools</li>
+<li>not intended to be compact</li>
+<li>not intended to be used as a new font format in itself</li>
+</ul>
+
+<h1>*.ufo/</h1>
+
+<table>
+<tr>
+<th>file name</th>
+<th>description</th>
+<th>required</th>
+</tr>
+<tr>
+<td>metainfo.plist</td>
+<td>contains format version, save date, etc.</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>fontinfo.plist</td>
+<td>contains various font info data</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>groups.plist</td>
+<td>contains glyph group definitions</td>
+<td>no</td>
+</tr>
+<tr>
+<td>kerning.plist</td>
+<td>contains kerning info</td>
+<td>no</td>
+</tr>
+<tr>
+<td>lib.plist</td>
+<td>custom data, this is the FontLib</td>
+<td>no</td>
+</tr>
+<tr>
+<td>glyphs/</td>
+<td>a folder containing .glif files and a contents.plist file. See <a href="glif.html">Glyph Interchange Format</a></td>
+<td>yes</td>
+</tr>
+</table>
+
+<h1>metainfo.plist</h1>
+
+<p>A <a href="plist.html-formatted">Property List</a> file, with a dictionary at the top level. Currently defined key/value pairs:</p>
+
+<table>
+<tr>
+<th>field name</th>
+<th>description</th>
+</tr>
+<tr>
+<td>creator</td>
+<td>fileCreator, a string identifying the software that create the ufo file.</td>
+</tr>
+<tr>
+<td>formatVersion</td>
+<td>the version number of the ufo format as an integer. Currently 1.</td>
+</tr>
+</table>
+
+<h1>fontinfo.plist</h1>
+
+<p>A <a href="plist.html-formatted">Property List</a> file, with a dictionary at the top level. Tentatively defined key/value pairs:</p>
+
+<table>
+<tr>
+<th>field name</th>
+<th>description</th>
+</tr>
+<tr>
+<td>ascender</td>
+<td>ascender value, an integer</td>
+</tr>
+<tr>
+<td>capHeight</td>
+<td>cap height value, an integer</td>
+</tr>
+<tr>
+<td>copyright</td>
+<td>copyright string, a string</td>
+</tr>
+<tr>
+<td>createdBy</td>
+<td>field for the creator for the font, i.e. the foundry</td>
+</tr>
+<tr>
+<td>defaultWidth</td>
+<td>value for default width of missing glyphs, an integer</td>
+</tr>
+<tr>
+<td>designer</td>
+<td>name of the designer, a string</td>
+</tr>
+<tr>
+<td>designerURL</td>
+<td>web address for the designer, a <span class="caps">URL</span></td>
+</tr>
+<tr>
+<td>familyName</td>
+<td>family name of the font, a string</td>
+</tr>
+<tr>
+<td>fondID</td>
+<td>MacOS <span class="caps">FOND</span> resource number, an integer</td>
+</tr>
+<tr>
+<td>fondName</td>
+<td>MacOS <span class="caps">FOND</span> name, a string</td>
+</tr>
+<tr>
+<td>fontName</td>
+<td>font name, a string</td>
+</tr>
+<tr>
+<td>fontStyle</td>
+<td>the font style code, integer</td>
+</tr>
+<tr>
+<td>fullName</td>
+<td>the full name of the font, a string</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>reference to the parent object (a font usually)</td>
+</tr>
+<tr>
+<td>italicAngle</td>
+<td>the italic angle, integer</td>
+</tr>
+<tr>
+<td>license</td>
+<td>the font license text, a string</td>
+</tr>
+<tr>
+<td>licenseURL</td>
+<td>web address for the license agreement, a <span class="caps">URL</span></td>
+</tr>
+<tr>
+<td>menuName</td>
+<td>one of the menu names, a string</td>
+</tr>
+<tr>
+<td>msCharSet</td>
+<td>flag for windows fonts</td>
+</tr>
+<tr>
+<td>note</td>
+<td>the font note, a string</td>
+</tr>
+<tr>
+<td>notice</td>
+<td>a notice about the font, different from note and copyrright, a string</td>
+</tr>
+<tr>
+<td>otFamilyName</td>
+<td>family name specific for OpenType fonts a string</td>
+</tr>
+<tr>
+<td>otStyleName</td>
+<td>style name specific for OpenType fonts, a string</td>
+</tr>
+<tr>
+<td>otMacName</td>
+<td>Mac name specific for OpenType fonts, a string</td>
+</tr>
+<tr>
+<td>selected</td>
+<td>whether or not the font is selected, a boolean</td>
+</tr>
+<tr>
+<td>slantAngle</td>
+<td>slant angle, different from italic angle, an integer</td>
+</tr>
+<tr>
+<td>styleName</td>
+<td>the style name, a string</td>
+</tr>
+<tr>
+<td>trademark</td>
+<td>the trademark statement, a string</td>
+</tr>
+<tr>
+<td>ttUniqueID</td>
+<td>unique ID for TrueType fonts, an integer</td>
+</tr>
+<tr>
+<td>ttVendor</td>
+<td>Microsoft vendor code, a 4 character string</td>
+</tr>
+<tr>
+<td>ttVersion</td>
+<td>which truetype version</td>
+</tr>
+<tr>
+<td>uniqueID</td>
+<td>unique PostScript ID number, an integer</td>
+</tr>
+<tr>
+<td>unitsPerEm</td>
+<td>units per em, integer</td>
+</tr>
+<tr>
+<td>vendorURL</td>
+<td>web address for the font’s vendor, a <span class="caps">URL</span></td>
+</tr>
+<tr>
+<td>versionMajor</td>
+<td>value for major version</td>
+</tr>
+<tr>
+<td>versionMinor</td>
+<td>value for minor version</td>
+</tr>
+<tr>
+<td>weightName</td>
+<td>the name of the weight, i.e. “Semi Bold”, used in naming stuff.</td>
+</tr>
+<tr>
+<td>weightValue</td>
+<td>value for the weight. FontLab calls Regular 500 (or something like that)</td>
+</tr>
+<tr>
+<td>widthName</td>
+<td>the name of the width, i.e. “Condensed”</td>
+</tr>
+<tr>
+<td>year</td>
+<td>the year in which the font was produced</td>
+</tr>
+</table>
+
+<p>Version 2 of fontInfo.plist is being sketched out over at [“UFOFontInfo2”].</p>
+
+<h1>groups.plist</h1>
+
+<p>A <a href="plist.html-formatted">Property List</a> file, with a dictionary at the top level. Keys are group names, values are arrays containing glyph name strings. This file is optional.</p>
+
+<h1>kerning.plist</h1>
+
+<p>A <a href="plist.html">Property List</a> formatted file, with a dictionary at the top level. Keys are “first glyph” glyph names, values are dictionaries that contain “right glyph” glyph names as keys, and the kern value as the value, which may be an integer or a float. Names defined in the groups.plist may also be used in place of glyph names. This file is optional.</p>
+
+<h1>lib.plist</h1>
+
+<p>This is the FontLib; it’s a <a href="plist.html">Property List</a> formatted file, with a dictionary at the top level. Top-level keys must follow the ReverseDomainName convention. This file is optional.</p>
+
+<h1>glyphs/</h1>
+
+<p>Folder containing .glif files. Must also contain a contents.plist file. See <a href="glif.html">Glyph Interchange Format</a>.</p>
+
+<h1>glyphs/contents.plist</h1>
+
+<p>All .glif files for a font files are usually kept together inside a directory.<br />
+    Such a directory may contain a file named “contents.plist”, which contains<br />
+    a dictionary that maps glyph names to file names. Those file names must<br />
+    plain file names, not absolute or relative paths in the file system. Care<br />
+    must be taken when choosing file names: glyph names are case sensitive, yet<br />
+    many file systems are not. A simple scheme that appears to work in practice<br />
+    for Adobe-style glyph names, is to take the glyphs base name, and add an<br />
+    underscore if the name starts with a cap. Where “base name” means the first<br />
+    component when split on ”.”. Examples: a.glif, A_.glif, a.alt.glyph,<br />
+    A_.alt.glyph.</p>
+
+
+
+     </div>
+</body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>RoboFab Objects: RSegment</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="../howto/index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div id="titlepic">
+<img src="../img/offdrawmodel_34.gif" alt="" border="0" />
+</div>
+<div class="content">
+<h1>RoboFab RSegment</h1>
+<h3>Usage</h3>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Segment object<br>#&nbsp; &nbsp; usage examples<br> <br><span class="py_key">f</span> = <span class="py_key">OpenFont</span>()<br> <br><span class="py_res">for</span> <span class="py_key">c</span>&nbsp; <span class="py_res">in</span> <span class="py_key">f</span>:<br>&nbsp; &nbsp; <span class="py_res">for</span> <span class="py_key">contour</span> <span class="py_res">in</span> <span class="py_key">c</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">for</span> <span class="py_key">segment</span> <span class="py_res">in</span> <span class="py_key">contour</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">segment</span><br></pre></div><div class="pythonsourcetitle"><a href="examples/usageSegment.py" target="new"><strong>➔ Download this.</strong></a></div>
+<div class="pythonoutput"><pre>&lt; <span class="py_key">RSegment</span> <span class="py_res">for</span> <span class="py_key">RoboFab</span> <span class="py_key">Demo</span> <span class="py_key">Font</span>.<span class="py_key">R</span>[<span class="py_num">0</span>][<span class="py_num">0</span>] &gt;<br>&lt; <span class="py_key">RSegment</span> <span class="py_res">for</span> <span class="py_key">RoboFab</span> <span class="py_key">Demo</span> <span class="py_key">Font</span>.<span class="py_key">R</span>[<span class="py_num">0</span>][<span class="py_num">1</span>] &gt;<br>&lt; <span class="py_key">RSegment</span> <span class="py_res">for</span> <span class="py_key">RoboFab</span> <span class="py_key">Demo</span> <span class="py_key">Font</span>.<span class="py_key">R</span>[<span class="py_num">0</span>][<span class="py_num">2</span>] &gt;<br>&lt; <span class="py_key">RSegment</span> <span class="py_res">for</span> <span class="py_key">RoboFab</span> <span class="py_key">Demo</span> <span class="py_key">Font</span>.<span class="py_key">R</span>[<span class="py_num">0</span>][<span class="py_num">3</span>] &gt;<br>&lt; <span class="py_key">RSegment</span> <span class="py_res">for</span> <span class="py_key">RoboFab</span> <span class="py_key">Demo</span> <span class="py_key">Font</span>.<span class="py_key">R</span>[<span class="py_num">0</span>][<span class="py_num">4</span>] &gt;</pre></div>
+<h3>Description</h3>
+<p>
+	A Contour object is a list of segments. A segment is a list of points with some special attributes and methods.
+</p>
+<h3>Understanding Contours and outlines</h3>
+<p>
+	The way outline data is organised in RoboFab, and how the various objects relate is described here: <a href="../howto/understandcontours.html">understanding contours</a>.
+</p>
+<h3>Attributes</h3>
+<ul>
+	<li>
+		<strong>type</strong>: Type of segment
+	</li>
+	<li>
+		<strong>smooth</strong>: True if the segment is smooth, False if not.
+	</li>
+	<li>
+		<strong>selected</strong>: Returns True if the segment is selected, False if not.
+	</li>
+	<li>
+		<strong>points</strong>: List of points in the segment.
+	</li>
+	<li>
+		<strong>onCurve</strong>: Returns the oncurve point associated with the segment.
+	</li>
+	<li>
+		<strong>offCurve</strong>: Returns a list of offcurve points associated with the segment.
+	</li>
+</ul>
+<h3>Attribute examples</h3>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Segment object<br>#&nbsp; &nbsp; attribute examples<br> <br><span class="py_key">f</span> = <span class="py_key">OpenFont</span>()<br> <br><span class="py_res">for</span> <span class="py_key">c</span>&nbsp; <span class="py_res">in</span> <span class="py_key">f</span>:<br>&nbsp; &nbsp; <span class="py_res">for</span> <span class="py_key">contour</span> <span class="py_res">in</span> <span class="py_key">c</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">for</span> <span class="py_key">segment</span> <span class="py_res">in</span> <span class="py_key">contour</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">len</span>(<span class="py_key">segment</span>)<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">segment</span>.<span class="py_key">type</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">segment</span>.<span class="py_key">smooth</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">segment</span>.<span class="py_key">points</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">segment</span>.<span class="py_key">onCurve</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">segment</span>.<span class="py_key">offCurve</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">segment</span>.<span class="py_key">selected</span></pre></div><div class="pythonsourcetitle"><a href="examples/segmentAttributes.py" target="new"><strong>➔ Download this.</strong></a></div>
+<h3>Methods</h3>
+<p>
+</p>
+<ul>
+	<li><strong>copy()</strong>: return a deepcopy of the object.</li>
+	<li><strong>move((x, y))</strong>: move the anchor of the bPoint to (x,y). The relative coordinates of the bcpIn and bcpOut will remain the same, which means that in fact, they move the same distance.</li>
+	<li><strong>round()</strong>: round the coordinates to whole integers.</li>
+	<li><strong>transform(matrix)</strong>: Transform this point. Use a Transform matrix
+		object to mess with the point. <a href="../howto/usetransformations.html">See how to use transformations</a>.</li>
+	</ul>
+	<h3>Method examples</h3>
+	<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Segment object<br>#&nbsp; &nbsp; method examples<br> <br><span class="py_key">f</span> = <span class="py_key">OpenFont</span>()<br> <br><span class="py_res">for</span> <span class="py_key">c</span>&nbsp; <span class="py_res">in</span> <span class="py_key">f</span>:<br>&nbsp; &nbsp; <span class="py_res">for</span> <span class="py_key">contour</span> <span class="py_res">in</span> <span class="py_key">c</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">for</span> <span class="py_key">segment</span> <span class="py_res">in</span> <span class="py_key">contour</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">segment</span>.<span class="py_key">move</span>((<span class="py_num">50</span>, <span class="py_num">25</span>))</pre></div><div class="pythonsourcetitle"><a href="examples/segmentMethods.py" target="new"><strong>➔ Download this.</strong></a></div>
+	
+</div>
+</body></html>

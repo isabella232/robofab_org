@@ -1,0 +1,326 @@
+
+
+
+
+
+body {
+    background-color: white;
+    font-size: 12pt;
+	font-family: "HeadlineNormal", "Lucida Grande", Verdana, sans-serif;
+}
+
+/* generic defaults */
+a {
+    text-decoration: none;
+    color: black;
+	background-color: rgba(243, 150, 0, 0.15);
+	padding: 5px;
+}
+a:hover{
+	background-color: rgba(243, 150, 0, 0.5);
+}
+
+/* content */
+div.content{
+    width: 100%;
+}
+/* masthead */
+div.masthead{
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    margin: 0;
+    left: 0px;
+    top: 0px;
+}
+p.masthead{
+    /* size 104 / base 16 */
+    font-size: 520%;
+    color: rgba(255, 255, 255, 0.81);
+    margin: 0;
+    /*margin-left: 125px;*/
+    margin-left: 14.25%;
+    width: 88.75%;
+	font-family: "HeadlineNormal", "Lucida Grande", Verdana, sans-serif;
+}
+span.black{
+	font-family: "HeadlineBlack";
+}
+
+
+
+/* sidebar */
+div.sidebar{
+    position: absolute;
+    width: 15%;
+    height: 100%;
+    background: white;
+    margin: 0;
+    left: 0px;
+    top: 100px;
+
+}
+
+ul.speakers{
+    list-style-type: none;
+	font-family: "HeadlineBold", "Lucida Grande", Verdana, sans-serif;
+    font-size: 95%;
+	line-height: 160%;
+    margin-left: 30px;
+    width:90%;
+    max-width:550px
+}
+
+/* top slide panels */
+div.topsliders{
+    position: absolute;
+    top: 120px;
+    margin-left: 15%;
+    width: 85%;
+    height: 65px;
+/*    background-color: red; */
+}
+ul.boxsliders{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul.boxsliders > li{
+    margin: 0;
+    padding: 0;
+    float: left;
+    display: inline;
+    list-style-type: none;
+}
+ul.boxsliders > li a {
+    /* the anchor in the slider */
+    font-size: 237%;
+	font-family: "HeadlineBold";
+    
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    
+    background: rgba(250, 202, 62, 0.5);
+
+    color: rgba(0, 0, 0,0.25);
+}
+ul.boxsliders > li a:hover{
+    background: rgba(250, 202, 62, 1);
+    padding-top: 30px;
+    padding-bottom: 20px;
+    color: black;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+/*  conference related buttons */
+ul.conferencesliders > li{
+    margin: 0;
+	margin-top: 20px;
+    padding: 0;
+    display: inline;
+    list-style-type: none;
+}
+ul.conferencesliders > li a {
+    /* the anchor in the slider */
+    background: rgba(243, 150, 0, 0.5);
+    font-size: 180%;
+	font-family: "HeadlineLight";
+    margin: 40px;
+    padding: 10px;
+	text-transform:uppercase;
+
+    color: rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+ul.conferencesliders > li a:hover{
+    background: rgba(184, 202, 62, 1);
+    color: black;
+}
+
+
+
+
+
+/* big frontpage ad */
+div.splashbox{
+    position: absolute;
+    width: 85%;
+    margin-left: 15%;
+    margin-top: 10px;
+}
+span.tinysplash{
+	font-family: "HeadlineLight";
+    font-size: 28%;
+    vertical-align:22px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+h2.bylinesplash{  
+    font-size: 130.625%;
+	font-family: "HeadlineLight";
+	font-weight:normal;
+	line-height: 20px;
+    vertical-align:50px;
+	text-transform:uppercase;
+	padding: 5px;
+	margin-top: 40px;
+	background-color: rgba(243, 150, 0, 1);
+	color: white;
+	width: 70%;
+}
+div.registrationbox{
+    position: absolute;
+    width: 85%;
+    margin-left: 15%;
+    top: 220px;
+    background: rgba(184, 249, 70, 1);
+    color: #2C2599;
+}
+
+
+table.fees{
+	font-family: "Lucida Grande", Verdana, sans-serif;
+	font-family: "HeadlineLight";
+    font-size: 95%;
+	line-height: 150%;
+	margin-left: 30px;
+	border-spacing: 30px 10px;
+}
+td.price{
+	font-family: "HeadlineBold";
+    font-size: 110%;
+}
+/* text styles */
+p.text{
+	font-family: "HeadlineNormal", "Lucida Grande", Verdana, sans-serif;
+    font-size: 95%;
+	line-height: 160%;
+    margin-left: 30px;
+    width:90%;
+    max-width:550px
+}
+p.text > em{
+	font-family: "HeadlineBold", "Lucida Grande", Verdana, sans-serif;
+	font-style: normal;
+}
+span.small{
+    font-size: 80%;
+}
+span.bold{
+	font-family: "HeadlineBold", "Lucida Grande", Verdana, sans-serif;
+}
+
+/* otherwise the regular smears */
+strong{
+	font-family: "HeadlineBold", "Lucida Grande", Verdana, sans-serif;
+	font-weight:normal;
+}
+
+p.splash{
+	font-family: "HeadlineLight";
+    font-size: 400%;
+	line-height: 25%;
+    margin-left: 30px;
+    width:90%;
+    max-width:550px
+}
+
+div.textbox{
+    width:90%;
+    max-width:550px
+}
+
+
+
+
+
+td.header1 {background-color:#333;
+		color:#ccc; 
+		text-align: left;
+		font-size:20pt;
+		border-bottom: none;
+		}
+td.header2 {background-color:#333; color:#ccc; text-align: left;  font-size:15pt;}
+td.header3 {font-size: 130%;
+		padding-top:30px;
+		padding-bottom: 10px;
+		border: none;
+	}
+td.header4 {color:#333;
+		text-align: left;
+		border: none;
+		background-color:rgba(0,0,0,0.04);
+		}
+td.time {
+		font-family: "HeadlineBold", "Lucida Grande", Verdana, sans-serif;
+		background-color:rgba(0,0,0,0.07);
+		padding: 10;
+		border: none;
+		}
+td.session {text-align: left;}
+
+table{
+	width: 80%;
+	padding: none;
+	border-collapse: collapse;
+}
+th, thead {
+	color: #000;
+	margin: 2px;
+	text-align: left;
+    vertical-align: top;
+}
+
+td {
+	font-family: "HeadlineNormal", "Lucida Grande", Verdana, sans-serif;
+    border-top: 1pt dotted #aaa;
+	border-bottom: none;
+    padding: 5pt;
+    font-size: 90%;
+    vertical-align: top;
+}
+
+td.small{
+	font-size: 75%;
+	color: gray;
+}
+td.break{
+	background: #ddd;
+	padding: 4pt;
+}
+
+
+
+td.item{
+	background: #ddd;
+	padding: 4pt;
+	font-size: 90%;
+}
+
+
+/* twitter letter */
+a.twitter{
+	background-color: #4099ff;
+	color: white;
+	font-family: "HeadlineBold", "Lucida Grande", Verdana, sans-serif;
+	font-size: 80%;
+	padding: 2px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 3px;
+}

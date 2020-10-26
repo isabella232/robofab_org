@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>toolsFL &#8212; RoboFab 599 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/robofab.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '599',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="toolsRF" href="toolsRF.html" />
+    <link rel="prev" title="toolsAll" href="toolsAll.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+  </head>
+  <body role="document">
+<div id='header'>
+<a href='../../objects/model.html'>
+    <img id='map-link' src="../../_static/_img/logo.gif" />
+</a>
+</div>
+
+<!-- horizontal -->
+
+
+<div class="navbar">
+
+<ul>
+<li><a href="../../index.html">home</a> </li>
+<li><a href="../../intro/download.html">download</a></li>
+<li><a href="../../genindex.html">index</a></li>
+</ul><div id="searchbox" style="display: none">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+</div>
+
+
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../objects/index.html">Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos/index.html">How To&#8217;s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../talks/index.html">Step-by-step</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Docs</a></li>
+</ul>
+
+
+  <div class="canhide">
+    <h4>Previous</h4>
+    <p class="topless">
+      <a href="toolsAll.html" title="previous chapter">toolsAll</a>
+    </p>
+  </div>
+  <div class="canhide">
+    <h4>Next</h4>
+    <p class="topless">
+      <a href="toolsRF.html" title="next chapter">toolsRF</a>
+    </p>
+  </div><div id="searchbox" style="display: none">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+<div class="documentwrapper">
+<div class="bodywrapper">
+<div class="body" id="content">
+
+  <div class="section" id="module-robofab.tools.toolsFL">
+<span id="toolsfl"></span><h1>toolsFL<a class="headerlink" href="#module-robofab.tools.toolsFL" title="Permalink to this headline">¶</a></h1>
+<p>T.O.O.L.S.: Things Other Objects Lack (Sometimes)
+-assorted raw tools.</p>
+<p>This is an assorted colection of raw tools that do
+things inside of FontLab. Many of these functions
+form the bedrock of objectsFL. In short, use these
+tools only if you need the raw functions and they are
+not supported by the objects.</p>
+<p>Object model:
+Most of these tools were written before
+objectsFL. Some of these tools are used by
+objectsFL. That means that if you want to
+use functions from robofab.tools you can always
+feed them FontLab objects (like Font, Glyps,
+etc.). If the functions also accept Robjects from
+robofab.objects it is usually mentioned in the
+doc string.</p>
+<p>This is a simple way to convert a robofab Font
+object back to a FL Font object. Even if you don&#8217;t
+know which particular faith an object belongs to
+you can use this:</p>
+<p>font = unwrapFont(font)</p>
+<dl class="function">
+<dt id="robofab.tools.toolsFL.AppFolderRenamer">
+<code class="descname">AppFolderRenamer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.AppFolderRenamer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will rename the folder that contains the
+FontLab application to a more specific name that includes
+the version of the application
+Warning: it messes with the paths of your app, if you have
+items that hardwired to this path you&#8217;d be in trouble.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.GetFont">
+<code class="descname">GetFont</code><span class="sig-paren">(</span><em>full_name</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.GetFont" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return fontobjects which match full_name.
+Note: result is a list.
+Returns: a list of FL Font objects</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.AllFonts">
+<code class="descname">AllFonts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.AllFonts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect a list of all open fonts.
+Returns: a list of FL Font objects.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.FontIndex">
+<code class="descname">FontIndex</code><span class="sig-paren">(</span><em>font</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.FontIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the index of a specified FL Font</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.unwrapFont">
+<code class="descname">unwrapFont</code><span class="sig-paren">(</span><em>font</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.unwrapFont" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unwrap the font if it happens to be a RoboFab Font</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.MakeTempFont">
+<code class="descname">MakeTempFont</code><span class="sig-paren">(</span><em>font</em>, <em>dupemark=None</em>, <em>removeOverlap=True</em>, <em>decompose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.MakeTempFont" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current FL Font,
+- close the file,
+- duplicate the file in the finder (icon looks weird, but it works)
+- open the duplicate
+- decompose the glyphs
+- remove overlaps
+- return the fontobject</p>
+<p>font  is either a FL Font or RF RFont object.</p>
+<p>Problems: doesn&#8217;t check if the filename is getting too long.
+Note: it will overwrite older files with the same name.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.makePSFontName">
+<code class="descname">makePSFontName</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.makePSFontName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a postscript filename out of a regular postscript fontname,
+using the old fashioned macintosh 5:3:3 convention.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.NewGlyph">
+<code class="descname">NewGlyph</code><span class="sig-paren">(</span><em>font</em>, <em>glyphName</em>, <em>clear=False</em>, <em>updateFont=True</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.NewGlyph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a new glyph if it doesn&#8217;t already exist, return the glyph.
+font is either a FL Font or RF RFont object. If updateFont is True
+the (very slow) fl.UpdateFont function will be called.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.AddToAlias">
+<code class="descname">AddToAlias</code><span class="sig-paren">(</span><em>additions</em>, <em>sep='+'</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.AddToAlias" title="Permalink to this definition">¶</a></dt>
+<dd><p>additions is a dict with glyphnames as keys
+and glyphConstruction as values. In order to make
+a bunch of additions in one go rather than open
+and close the file for each name.       Add a glyph
+to the alias.dat file if it doesn&#8217;t already exist.
+additions = {&#8216;Gcircumflex&#8217;: [&#8216;G&#8217;,&#8217;circumflex&#8217;], }
+Returns a list of only the added glyphnames.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.GlyphIndexTable">
+<code class="descname">GlyphIndexTable</code><span class="sig-paren">(</span><em>font</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.GlyphIndexTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a glyph index table for font</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.MakeReverseCompoMapping">
+<code class="descname">MakeReverseCompoMapping</code><span class="sig-paren">(</span><em>font</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.MakeReverseCompoMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict that maps glyph names to lists containing tuples
+of the form:</p>
+<blockquote>
+<div>(clientGlyphName, componentIndex)</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.textPrinter">
+<code class="descname">textPrinter</code><span class="sig-paren">(</span><em>text</em>, <em>name=None</em>, <em>path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.textPrinter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a string to a text file. If no name is given it becomes
+Untitled_hour_minute_second.txt . If no path is given it goes
+into the FontLab/RoboFab Data directory.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.makeDataFolder">
+<code class="descname">makeDataFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.makeDataFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make the RoboFab data folder</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="robofab.tools.toolsFL.Log">
+<code class="descname">Log</code><span class="sig-paren">(</span><em>text=None</em><span class="sig-paren">)</span><a class="headerlink" href="#robofab.tools.toolsFL.Log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make an entry in the default log file.</p>
+</dd></dl>
+
+</div>
+
+
+</div>
+    </div>
+</div>
+
+      <div class="clearer"></div>
+    </div>
+<div id='tocsidebar'>
+<h3>links</h3>
+<ul>
+<li><a href='http://github.com/robofab-developers/robofab'>source code</a></li>
+<li><a href='http://groups.google.com/group/robofab'>mailing list</a></li>
+</ul>
+<!--
+<h3>more links</h3>
+<ul>
+<li><a href='http://sourceforge.net/projects/fonttools/'>FontTools/TTX</a></li>
+<li><a href='http://tools.typesupply.com/'>TypeSupply</a></li>
+<li><a href='http://superpolator.com/'>Superpolator</a></li>
+<li><a href='http://letterror.com/'>LettError</a></li>
+</ul>
+-->
+</div>
+
+<div class="footer">
+<p>&copy; Copyright <script>document.write(new Date().getFullYear())</script>
+    <a href="http://letterror.com/">Just van Rossum</a>, <a href="http://letterror.com/">Erik van Blokland</a>, <a href="http://typesupply.com/">Tal Leming</a>.</p>
+<p>
+Last updated on May 20, 2017. 
+Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.2.
+</p>
+</div>
+  </body>
+</html>

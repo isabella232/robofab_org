@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How to interpolate</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div class="content">
+<h1>How to interpolate</h1>
+<p>
+	RoboFab's interpolation is independent of the interpolation tools provided in FontLab. First of all that means that you can interpolate UFO fonts without the help of FontLab. It also means that the interpolation engine works different than the one in FontLab.
+</p>
+<h2>Strict</h2>
+<p>
+	RoboFab interpolation is very strict. It won't interpolate unless the point structures of both extremes match. It won't mess with the masters, force points or anything. The user has to get it right.
+</p>
+<h3>aGlyph.isCompatible(otherGlyph, report=True)</h3>
+<p>
+	Glyph has a method isCompatible() which reports whether or not the point structures are capable of interpolating. With this method you can run through your proposed interpolation first and see if all glyphs work, and perhaps send feedback to the user.
+</p>
+<div class="pythonsource"><pre><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br><span class="py_key">a</span> = <span class="py_key">f</span>[<span class="py_str">"a"</span>]<br><span class="py_res">print</span> <span class="py_key">a</span>.<span class="py_key">isCompatible</span>(<span class="py_key">f</span>[<span class="py_str">"b"</span>], <span class="py_key">False</span>)</pre></div>
+<div class="pythonoutput"><pre><span class="py_key">False</span></pre></div>
+<p>
+	isCompatible has a flag <strong>report</strong> which if set to True will return a tuple with a report on the incompatibilities.
+</p>
+<div class="pythonsource"><pre><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br><span class="py_key">a</span> = <span class="py_key">f</span>[<span class="py_str">"a"</span>]<br><span class="py_res">print</span> <span class="py_key">a</span>.<span class="py_key">isCompatible</span>(<span class="py_key">f</span>[<span class="py_str">"b"</span>], <span class="py_key">True</span>)</pre></div>
+<div class="pythonoutput"><pre>(<span class="py_key">False</span>, [<span class="py_com">"</span><span class="py_key">Fatal</span> <span class="py_key">error</span>: <span class="py_key">contour</span> <span class="py_num">0</span> <span class="py_res">in</span> <span class="py_key">glyph</span> <span class="py_key">a</span><br>&nbsp; &nbsp;&nbsp; <span class="py_res">and</span> <span class="py_key">glyph</span> <span class="py_key">b</span> <span class="py_key">don</span><span class="py_com">'</span><span class="py_key">t</span> <span class="py_key">have</span> <span class="py_key">the</span> <br>&nbsp; &nbsp; <span class="py_key">same</span> <span class="py_key">number</span> <span class="py_key">of</span> <span class="py_key">segments</span>.<span class="py_com">"</span>])</pre></div>
+<h3>aFont.interpolate(factor, minFont, maxFont, suppressError=True, analyzeOnly=False)</h3>
+<p>
+	Interpolate by factor between minFont and maxFont. In FontLab the result of the interpolation will be rounded to whole integers. In NoneLab (outside FontLab, operating on a UFO), the result of the interpolation is a font with glyphs with floating point coordinates so if you want to  use the result of one interpolation as a master in the next you won't loose precision to rounding errors. It might mean that for some uses of UFO you need to round the glyphs afterwards. aFont.interpolate also interpolates the positions of components, anchors, ascender, descender, and glyph widths for the whole font.
+</p>
+<br />
+<ul>
+	<li>
+		<strong>factor</strong> either a number or a tuple of numbers. Usually factor is a float number between 0 and 1. 0 produces minGlyph, 1 produces maxGlyph. Values > extrapolates beyong maxGlyph. Values < extrapolate beyond minGlyph. If you pass (x, y) to factor it will interpolate horizontal values differently from vertical values. For instance (0, 1) as factor produces a font (or a glyph) which horizontally looks like the minimum, but vertically it looks like the maximum.
+	</li>
+	<li>
+		<strong>minFont</strong> RFont object, the font for the minimum master.
+	</li>
+	<li>
+		<strong>maxFont</strong> RFont object, the font for the maximum master.
+	</li>
+	<li>
+		<strong>suppressError</strong> (optional) will supress all tracebacks it finds on the way. That means that interpolation problems in individual glyphs won't stop the rest of the font from getting done. Default set to True.
+	</li>
+<li>
+
+	<strong>analyzeOnly</strong> (optional) will do a dry run of the interpolation and do a full analysis of the compatibility and problems. It won't produce any outlines in the font. Default set to False.
+</li>
+</ul>
+<p>
+<a href="../objects/kerning.html">Kerning objects</a> have an interpolation method as well. It is debateable whether an interpolation of two fonts should also automatically interpolate the kerning, so we picked the more explicit approach: in your interpolation script you have to do the interpolation of the kerning objects seperately.
+</p>
+<h2>Examples</h2>
+<h3>Straight interpolating (either FontLab or UFO)</h3>
+<p>
+Setting a third font to an interpolation of two others.
+</p>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Interpolate howto<br>#&nbsp; &nbsp; Straight Interpolating examples<br> <br><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">OpenFont</span><br><span class="py_key">minFont</span> = <span class="py_key">OpenFont</span>(<span class="py_key">pathToMinFont</span>)<br><span class="py_key">maxFont</span> = <span class="py_key">OpenFont</span>(<span class="py_key">pathToMaxFont</span>)<br># or any other way you like to get two font objects<br> <br><span class="py_key">inbetweenFont</span> = <span class="py_key">OpenFont</span>(<span class="py_key">pathToInbetweenFont</span>)<br># so now we have 3 font objects, right?<br> <br><span class="py_key">inbetweenFont</span>.<span class="py_key">interpolate</span>(<span class="py_num">.5</span>, <span class="py_key">minFont</span>, <span class="py_key">maxFont</span>)<br># presto, inbetweenFont is now 50% of one and 50% of the other<br> <br><span class="py_key">inbetweenFont</span>.<span class="py_key">interpolate</span>((<span class="py_num">.92</span>, <span class="py_num">.12</span>), <span class="py_key">minFont</span>, <span class="py_key">maxFont</span>)<br># presto, inbetweenFont is now horizontally<br># vertically interpolated in different ways.<br></pre></div><div class="pythonsourcetitle"><a href="examples/interpolStraight.py" target="new"><strong>➔ Download this.</strong></a></div>
+<h3>Interpolating two glyphs in the same font</h3>
+<p>
+For any number of reasons you might want to interpolate a glyph within the same font. Here's how to do it.
+</p>
+<div class="pythonsource"><pre>File cannot be tokenized by tokenize</pre></div><div class="pythonsourcetitle"><a href="examples/interpolGlyphs.py" target="new"><strong>➔ Download this.</strong></a></div>
+<h2>Alternatives</h2>
+<p>
+These are the conventional ways of doing interpolation. Have a look at <a href="glyphmath.html">RoboFab's GlyphMath</a> for alternatives for blending and interpolating glyphs together.
+</p>
+</div>
+</body></html>

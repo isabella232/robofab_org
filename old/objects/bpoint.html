@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>RoboFab Objects: bPoint</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="../howto/index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div id="titlepic">
+<img src="../img/offdrawmodel_28.gif" alt="" border="0" />
+</div>
+<div class="content">
+<h1>RoboFab bPoint</h1>
+<h3>Usage</h3>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp; bPoint object<br>#&nbsp; &nbsp; Usage examples<br> <br><span class="py_key">g</span> = <span class="py_key">CurrentGlyph</span>()<br><span class="py_res">for</span> <span class="py_key">aPt</span> <span class="py_res">in</span> <span class="py_key">g</span>[<span class="py_num">0</span>].<span class="py_key">bPoints</span>:<br>&nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">aPt</span></pre></div><div class="pythonsourcetitle"><a href="examples/usageBPoint.py" target="new"><strong>➔ Download this.</strong></a></div>
+<div class="pythonoutput"><pre>&lt; <span class="py_key">RbPoint</span> <span class="py_res">for</span> <span class="py_key">Special</span>-<span class="py_key">Bold</span>.<span class="py_key">A</span>[<span class="py_num">0</span>][<span class="py_num">0</span>] &gt;</pre></div>
+<h3>Description</h3>
+<p>
+	The bPoint is a point object which mimics the old "Bezier Point" from RoboFog. It has attributes for bcpIn, anchor, bcpOut and type. The coordinates in bcpIn and bcpOut are relative to the position of the anchor. For instance, if the bcpIn is 20 units to the left of the anchor, its coordinates would be (-20,0), regardless of the coordinates of the anchor itself. Also: bcpIn will be (0,0) when it is "on top of the anchor", i.e. when there is no bcp it will still have a value. The parent of a bPoint is usually a Contours
+</p>
+<h3>Understanding Contours and outlines</h3>
+<p>
+	The way outline data is organised in RoboFab, and how the various objects relate is described here: <a href="../howto/understandcontours.html">understanding contours</a>.
+</p>
+<h3>Attributes</h3>
+<ul>
+	<li><strong>anchor</strong>: the position of (oncurve) anchor. (x, y)</li>
+	<li><strong>bcpIn</strong>: the position of the incoming (offcurve) bezier control point. (x, y)</li>
+	<li><strong>bcpOut</strong>: the position of the outgoing (offcurve) bezier control point. (x, y)</li>
+	<li><strong>type</strong>: the type of the bPoint. Either <strong>corner</strong> or <strong>curve</strong></li>
+</ul>
+<h3>Attribute examples</h3>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp; bPoint object<br>#&nbsp; &nbsp; Attribute examples<br> <br><span class="py_key">g</span> = <span class="py_key">CurrentGlyph</span>()<br><span class="py_res">for</span> <span class="py_key">aPt</span> <span class="py_res">in</span> <span class="py_key">g</span>[<span class="py_num">0</span>].<span class="py_key">bPoints</span>:<br>&nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">aPt</span>.<span class="py_key">bcpIn</span>, <span class="py_key">aPt</span>.<span class="py_key">bcpOut</span>, <span class="py_key">aPt</span>.<span class="py_key">anchor</span><br></pre></div><div class="pythonsourcetitle"><a href="examples/bpointAttributes.py" target="new"><strong>➔ Download this.</strong></a></div>
+<div class="pythonoutput"><pre>(<span class="py_num">0</span>, -<span class="py_num">175</span>) (<span class="py_num">611</span>, <span class="py_num">337</span>) (<span class="py_num">0</span>, <span class="py_num">175</span>)<br>&nbsp; &nbsp;&nbsp; (<span class="py_num">0</span>, <span class="py_num">0</span>) (<span class="py_num">223</span>, <span class="py_num">641</span>) (<span class="py_num">0</span>, <span class="py_num">0</span>)<br>&nbsp; &nbsp;&nbsp; <span class="py_key">etc</span>..</pre></div>
+<h3>Methods</h3>
+<p>
+</p>
+<ul>
+	<li><strong>copy()</strong>: return a deepcopy of the object.</li>
+	<li><strong>move((x, y))</strong>: move the anchor of the bPoint to (x,y). The relative coordinates of the bcpIn and bcpOut will remain the same, which means that in fact, they move the same distance.</li>
+	<li><strong>round()</strong>: round the coordinates to whole integers.</li>
+	<li><strong>select(state=True)</strong>: select this point.</li>
+	<li><strong>transform(matrix)</strong>: Transform this point. Use a Transform matrix
+		object to mess with the point. <a href="../howto/usetransformations.html">See how to use transformations</a>.</li>
+	</ul>
+	<h3>Method examples</h3>
+	
+	<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; bPoint object<br>#&nbsp; &nbsp; method examples<br> <br>#method examples<br></pre></div><div class="pythonsourcetitle"><a href="examples/bpointMethods.py" target="new"><strong>➔ Download this.</strong></a></div>
+	
+</div>
+</body></html>

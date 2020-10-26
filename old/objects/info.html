@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>RoboFab Objects: RInfo</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="../howto/index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div id="titlepic">
+<img src="../img/offdrawmodel_05.gif" alt="" border="0" />
+</div>
+<div class="content">
+<h1>RoboFab RInfo</h1>
+<h3>Usage</h3>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Info object<br>#&nbsp; &nbsp; usage examples<br> <br><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">postscriptFullName</span><br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">openTypeNameDesigner</span><br> <br><span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">openTypeNameDesigner</span> = <span class="py_str">"Jan van Krimpen"</span><br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">openTypeNameDesigner</span><br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">openTypeOS2VendorID</span><br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">unitsPerEm</span><br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">xHeight</span><br><span class="py_res">print</span> <span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">openTypeNameLicenseURL</span><br> <br># but you can set the values as well<br><span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">postscriptUniqueID</span> = <span class="py_num">4309359</span><br><span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">openTypeNameDesigner</span> = <span class="py_str">"Eric Gill"</span><br></pre></div><div class="pythonsourcetitle"><a href="examples/usageInfo.py" target="new"><strong>➔ Download this.</strong></a></div>
+<div class="pythonoutput"><pre><span class="py_key">MyFont</span> <span class="py_key">Regular</span><br><span class="py_key">Huib</span> <span class="py_key">van</span> <span class="py_key">Krimpen</span><br><span class="py_key">Jan</span> <span class="py_key">van</span> <span class="py_key">Krimpen</span><br><span class="py_key">LTTR</span><br><span class="py_num">1000</span><br><span class="py_num">307</span><br>#etc.</pre></div>
+<h3>Description</h3>
+<p>
+	RInfo contains all names, numbers, URL's, dimensions, values, etc. that would otherwise clutter up the font object. You don't have to create a RInfo object yourself, RFont makes one when it is created. In FontLab the RInfo data is tunneled to the appropriate places in the FontLab font. In UFO land the data ends up in info.plist. In all implementations RInfo doesn't check the validity of the entries, it just provides storage or access to them.
+</p>
+<h3>Complete list of attributes</h3>
+<p>
+	RoboFab version 1.2 implements new RInfo objects with extended attributes. The old attributes still work, but print a deprecation warning when they're accessed. Scripts written with UFO1 attributes should work. The specification of UFO2 has its own site, <a href="http://unifiedfontobject.org">UnifiedFontObject.org</a>. The objectsRF RInfo object implements all attributes listed, the objectsFL implementation misses a couple as the fields are not supported in FontLab.
+	
+	
+	
+	Please have a look at the <a href="http://unifiedfontobject.org/versions/ufo2/fontinfo.html">overview of the UFO2 font.Info attributes.</a>
+	
+</p>
+</div>
+</body></html>

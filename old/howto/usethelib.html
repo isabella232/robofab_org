@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using the lib</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div class="content">
+<h1>Using the lib</h1>
+<p>
+	The lib is very much like a plain dictionary: you use keys to store stuff in it. The nice thing about them is that they save their contents in the font and are available (after the font is saved) to scripts the next time you open the file again. In FontLab the libs (because there are several) are stored in the .vfb source. In UFO based fonts the font.libs end up in their own, XML based .plist files, inside th UFO package. The Glyph.libs end up in the .glif files.
+</p>
+<h2>Which lib?</h2>
+<p>
+	Sometimes it is handy to store values directly in the font that needs them. Rather than saving something in a seperate file (which could easily get lost), you can store data like this in the lib. A RFont has a lib and each single RGlyph has a lib as well.
+	RoboFog users might remember the various applications. It is likely that stuff will collect in the font and glyph libs, so it is wise to pay some attention to naming the entries. If you use undescriptive or generic names like 'a'  or 'mydata', there's a chance that another script will overwrite the data. So the RoboFab developers propose to use the 'reverse domain name scheme' which works out something like this:
+</p>
+<div class="pythonsource"><pre># storing something that belongs to a letterror script<br><span class="py_key">aFont</span>.<span class="py_key">lib</span>[<span class="py_str">'com.letterror.develop.markers'</span>]<br> <br># storing something that belongs to a aFoundry script<br><span class="py_key">aFont</span>.<span class="py_key">lib</span>[<span class="py_str">'com.aFoundry.bud.notes'</span>]</pre></div>
+<p>
+	The lib is a flat dictionary. For RoboFog users: the RoboFog lib nested and tried to be very clever. Unfortunately it meant that sometimes data would get lots in confusing situations. A flat dictionary solves that.
+</p>
+<h2>Note</h2>
+<p>
+	In FontLab version 4.5 and 4.6 there's a nasty bug which causes FontLab to crash after something has been added to the font.customdata or glyph.customdata fields. Unfortunately these fields were used to store the robofab.font.lib and robofab.glyph.lib data. We hope future versions of FontLab will address this. In UFO files the libs for font and glyphs work fine.
+</p>
+<h3>aFont.lib</h3>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Usethelib howto<br>#&nbsp; &nbsp; aFont.lib examples</pre></div>
+<h3>anyGlyph.lib</h3>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Usethelib howto<br>#&nbsp; &nbsp; anyGlyph.lib examples</pre></div>
+</div>
+</body></html>

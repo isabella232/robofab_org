@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>FontLab Remote</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div class="content">
+<h1>FontLab Remote</h1>
+<p>
+	A neat feature in RoboFab for FontLab on MacOS. RoboFab can install an AppleEvent handler in FontLab to make FontLab respond to calls from other applications. There is code to communicate with FontLab using this AppleEvent and to make it execute code and exchange data such as glyphs. How useful this remote stuff is depends on what you want to do with it. We thought it was cool. The 'remote' relates to one application controlling another. Both applications need to run on the same machine, it does not mean that FontLab is accepting commands over a network for instance. For that we need another tool.
+</p>
+<h2>How?</h2> <h3>Step 1: Start the remote stuff in FontLab</h3>
+<p>
+	The first thing you need to do is start the AppleEvent support in FontLab. That's done by importing the remote module.
+</p>
+<div class="pythonsource"><pre># start the remote stuff in FontLab<br><span class="py_res">import</span> <span class="py_key">robofab</span>.<span class="py_key">tools</span>.<span class="py_key">remote</span></pre></div>
+<div class="pythonoutput"><pre><span class="py_key">FontLabRemote</span> <span class="py_res">is</span> <span class="py_key">on</span>.</pre></div>
+<h3>Step 2: Start the Python IDE</h3>
+<p>
+	You can now send commands, bits of code and entire glyphs to FontLab from the Python IDE.
+</p>
+<div class="pythonsource"><pre># first, try a bit of python code<br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">tools</span>.<span class="py_key">remote</span> <span class="py_res">import</span> <span class="py_key">runFontLabRemote</span><br><span class="py_res">print</span> <span class="py_key">runFontLabRemote</span>(<span class="py_str">"print 1+1"</span>)</pre></div>
+<div class="pythonoutput"><pre><span class="py_num">2</span></pre></div>
+<p>
+	The function runFontLabRemote() sends a piece of Python code to FontLab's python interpreter and has it executed. In this example the code is "print 1+1". The result, the output of FontLab running this piece of code is then returned to the Python IDE. Note that the output is always a string. Depending on the code you throw at FontLab it could even contain tracebacks or other output.
+</p>
+<p>
+	When FontLab receives and executes a remote command, it will print a note to the FontLab Output window.
+</p>
+<div class="pythonoutput"><pre>&lt; <span class="py_key">executing</span> <span class="py_key">remote</span> <span class="py_key">command</span> &gt;<br>&lt; <span class="py_key">executing</span> <span class="py_key">remote</span> <span class="py_key">command</span> &gt;<br>&lt; <span class="py_key">executing</span> <span class="py_key">remote</span> <span class="py_key">command</span> &gt;</pre></div>
+<p>
+	That means that FontLab is doing remote stuff.
+</p>
+<h3>Step 3: Teleporting a Glyph</h3>
+<p>
+	The remote module has support to send and receive Glyphs. For the next example open a new font in FontLab first (command N), then run the following code in the Python IDE. Make sure you have a UFO font handy somewhere.
+</p>
+<div class="pythonsource"><pre><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">tools</span>.<span class="py_key">remote</span> <span class="py_res">import</span> <span class="py_key">transmitGlyph</span><br> <br># Pick a UFO font:<br><span class="py_key">f</span> = <span class="py_key">OpenFont</span>()<br> <br># one to beam up, Scotty!<br><span class="py_key">transmitGlyph</span>(<span class="py_key">f</span>[<span class="py_str">'n'</span>])</pre></div>
+<p>
+	If all went well, you now have the 'n' from your UFO copied to the right slot in your FontLab font. As noted earlier, if all you want to do is import some glyphs from a UFO into FontLab there is absolutely no need to use all this remote stuff.
+</p>
+<h2>Why?</h2>
+<p>
+	The remote module only takes care of the communication with FontLab. Possible applications which could be built on top of this are:
+</p>
+<ul>
+	<li>
+		Use FontLab to perform outline operations such as remove overlap.
+	</li>
+	<li>
+		Use FontLab to batch process font generation.
+	</li>
+	<li>
+		Build an external editor to augment the functionality of FontLab
+	</li>
+</ul>
+<p>
+	As noted before, the remote stuff only works on MacOS.
+</p>
+<h2>Example</h2>
+<p>
+	Example in which a glyph from a UFO opened in plain Python is copied to FontLab. After removing overlap the glyph is returned and inserted in the UFO.
+</p>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Fontlabremote howto<br>#&nbsp; &nbsp; usage examples<br> <br><br>#FLM: Remove overlap from Remote Glyph.<br> <br><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">OpenFont</span><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">tools</span>.<span class="py_key">remote</span> <span class="py_res">import</span> <span class="py_key">transmitGlyph</span>, <span class="py_key">receiveGlyph</span>, <br><span class="py_key">runFontLabRemote</span><br> <br># Pick a UFO font:<br><span class="py_key">f</span> = <span class="py_key">OpenFont</span>()<br> <br><span class="py_res">print</span> <span class="py_str">"Number of contours before"</span>, <span class="py_key">len</span>(<span class="py_key">f</span>[<span class="py_str">'A'</span>])<br> <br><br># call FontLab to make a new font<br><span class="py_key">startNewFontCode</span> = <span class="py_str">"""from robofab.world import NewFont<br>f = NewFont()<br>f.info.fullName = 'Temporary Font generated by RoboFab Remote'"""</span><br> <br><span class="py_res">print</span> <span class="py_key">runFontLabRemote</span>(<span class="py_key">startNewFontCode</span>)<br> <br># send a glyph to FontLab,<br># it will be inserted in the CurrentFont.<br><span class="py_key">transmitGlyph</span>(<span class="py_key">f</span>[<span class="py_str">'A'</span>])<br><span class="py_key">f</span>.<span class="py_key">removeGlyph</span>(<span class="py_str">'A'</span>)<br> <br># send instructions to remove overlap for this glyph<br><span class="py_key">overlapCode</span> = <span class="py_str">"""from robofab.world import CurrentFont<br>from robofab.tools.remote import transmitGlyph<br>f = CurrentFont()<br>f["A"].removeOverlap()<br>f.update()<br>transmitGlyph(f['A'])<br>"""</span><br> <br># send the code and catch the output<br><span class="py_key">x</span> = <span class="py_key">runFontLabRemote</span>(<span class="py_key">overlapCode</span>)<br># interpret the output<br><span class="py_key">receiveGlyph</span>(<span class="py_key">x</span>, <span class="py_key">f</span>)<br><span class="py_res">print</span> <span class="py_str">"Number of contours after: "</span>, <span class="py_key">len</span>(<span class="py_key">f</span>[<span class="py_str">'A'</span>])<br> <br># send instructions to FontLab to close the font again.<br><span class="py_key">closeFontCode</span> = <span class="py_str">"""from robofab.world import CurrentFont<br>f = CurrentFont()<br>f.close(None)<br>"""</span><br><span class="py_res">print</span> <span class="py_key">runFontLabRemote</span>(<span class="py_key">closeFontCode</span>)<br><span class="py_res">print</span> <span class="py_str">'done!'</span><br> <br></pre></div><div class="pythonsourcetitle"><a href="examples/usageFlremote.py" target="new"><strong>➔ Download this.</strong></a></div>
+<div class="pythonoutput"><pre># possible results:<br> <span class="py_key">Number</span> <span class="py_key">of</span> <span class="py_key">contours</span> <span class="py_key">before</span>: <span class="py_num">6</span><br> <span class="py_key">Number</span> <span class="py_key">of</span> <span class="py_key">contours</span> <span class="py_key">after</span>:&nbsp; <span class="py_num">4</span></pre></div>
+<h2>Notes</h2>
+<p>
+	While experimenting with robofab.tools.remote we found that after some time it's possible that FontLab grows weary of the remote fussing and the scripts stop working. Restarting FontLab usually solves that situation.
+</p>
+</div>
+</body></html>

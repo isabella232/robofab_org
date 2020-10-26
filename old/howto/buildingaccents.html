@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Building accents</title>
+<link href="../default.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+</head><body>
+<div class="leftcontent">
+<p class="menu">
+	<a href="../index.html">
+		Home
+	</a>
+	
+	
+</p>
+<p class="menu">
+	<a href="index.html">
+		How to's
+	</a>
+	<br />
+	<a href="../talks09/index.html">
+		Step by step intro
+	</a>
+	<br />
+	<a href="../objects/index.html">
+		Object reference
+	</a>
+</p>
+</div>
+<div class="content">
+<h1>Building accents</h1>
+<p>
+	Making accented glyphs is a job where scripting can help save some time. When  you have prepared all the parts, the base glyphs and the accents, a script can help to assemble the combinations. There are various ways of doing it, let's start with a simple one.
+</p>
+<div class="pythonsource"><pre># robofab manual<br>#&nbsp; &nbsp;&nbsp; Buildingaccents howto<br>#&nbsp; &nbsp; usage examples<br> <br><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br> <br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br><span class="py_key">f</span>.<span class="py_key">newGlyph</span>(<span class="py_str">"aacute"</span>)<br><span class="py_key">f</span>[<span class="py_str">"aacute"</span>].<span class="py_key">appendComponent</span>(<span class="py_str">"a"</span>)<br><span class="py_key">f</span>[<span class="py_str">"aacute"</span>].<span class="py_key">appendComponent</span>(<span class="py_str">"acute"</span>, (<span class="py_num">200</span>, <span class="py_num">0</span>))<br><span class="py_key">f</span>[<span class="py_str">"aacute"</span>].<span class="py_key">width</span> = <span class="py_key">f</span>[<span class="py_str">"a"</span>].<span class="py_key">width</span><br><span class="py_key">f</span>.<span class="py_key">update</span>()<br></pre></div><div class="pythonsourcetitle"><a href="examples/usageBuildaccents.py" target="new"><strong>➔ Download this.</strong></a></div>
+<p>
+	In this example the script creates a new glyph, <strong>aacute</strong>, then proceeds to add components, references to other glyphs rather than the glyphs themselves. The glyph method <strong>appendComponent</strong> is used to do this. See how the <strong>acute</strong> component has an extra argument, (200, 0) - this the offset for the accent. Finally the new glyph is given the width of the base <strong>a</strong>.
+</p>
+<p>
+	This example illustrates the use of the very basic <strong>appendComponent</strong> method. But it's not a very useful way to make glyphs. For instance, the string <strong>"aacute"</strong> could easily be made into a variable taken from a list. And dealing with the offsets when placing the accent isn't going to be efficient either when you want to make a large list of accented glyphs. How to go about it that?
+</p>
+<h2>Building accents automagically</h2>
+<p>
+	RoboFab has its own database which connects glyphnames to components. In the RoboFab distribution folder, go to Data/GlyphConstruction.txt. This text file contains a list of glyphnames and from which components they should be built. The RoboFab Glyph Construction database was based on FontLab's glyph list. This list contains information about where components should be connected.
+</p>
+<div class="pythonoutput"><pre><span class="py_key">Acircumflexdotaccent</span>: <span class="py_key">A</span> <span class="py_key">circumflex</span>.<span class="py_key">top</span> <span class="py_key">dotaccent</span>.<span class="py_key">bottom</span></pre></div>
+<p>
+	This entry shows that Acircumflexdotaccent is constructed with components from A, a circumflex using the top anchor, and dotaccent using the bottom anchor.
+</p>
+<h2>Generate a glyph</h2>
+<p>
+	RoboFab's Font object has several ways of starting component glyphs and adding stuff to them. There are different strategies possible for different kinds of problems.
+</p>
+<h3>font.generateGlyph(glyphName, replace, preflight, printErrors)</h3>
+<p>
+	The easiest method to add an assembled glyph to a font is using the font's <strong>generateGlyph</strong> method. This will look for the glyphname in the glyph construction database and attempt to get all the components and place them at the anchors listed in the database. Let's have a look at its parameters.
+	<ul>
+		<li><strong>glyphName</strong>: the name of the glyph, has to correspond to a name in the glyph construction database.</li>
+		<li><strong>replace</strong>: default set to True, the new glyph will replace the old one if it exists.</li>
+		<li><strong>preflight</strong>: default set to False, preflight gives you the opportunity to run the glyph creation process without actually adding it to the font. This is useful if you're building the characterset and you don't have all the parts yet. Preflight will return a list of missing anchor points, missing accents, components, etc. Note that it can take several iterations of fixing problems and discovering new ones. If for instance a glyph for a componnent can't be found, it also means that some problems with that glyph are hidden. i.e. when a glyph "A" can't be found, preflight can't tell you that this glyph is missing a required anchor point either.</li>
+		<li><strong>printErrors</strong>: default set to True, print any errors and problems to the standard output window.</li>
+	</ul>
+</p>
+<h3>font.compileGlyph(glyphName, baseName, accentNames, adjustWidth=False, preflight=False, printErrors=True)</h3>
+<p>
+	Compile a glyph with specified components. If you want to assemble accents that are not the glyph construction database, using compileGlyph.
+	<ul>
+		<li><strong>glyphName</strong>: the name of the glyph where it all needs to go.</li>
+		<li><strong>baseName</strong>: the name of the base glyph. accentNames: a list of accentName, anchorName tuples, [('acute', 'top'), etc]</li>
+		<li><strong>preflight</strong>: default set to False, preflight gives you the opportunity to run the glyph creation process without actually adding it to the font. This is useful if you're building the characterset and you don't have all the parts yet. Preflight will return a list of missing anchor points, missing accents, components, etc.</li>
+		<li><strong>printErrors</strong>: default set to True, print any errors and problems to the standard output window.</li>
+	</ul>
+</p>
+<h2>AccentBuilder</h2>
+<p>
+	RoboFab comes with a versatile accent building tool, AccentBuilder. Have a look at robofab.tools.accentbuilder. AccentBuilder deals with components, anchorpoints.
+</p>
+<div class="pythonsource"><pre># robofab manual<br># Buildingaccents howto<br>#&nbsp; &nbsp; AccentBuilder examples<br> <br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">accentBuilder</span> <span class="py_res">import</span> <span class="py_key">AccentTools</span>, <span class="py_key">buildRelatedAccentList</span><br> <br><span class="py_key">font</span> = <span class="py_key">CurrentFont</span>()<br> <br># a list of accented glyphs that you want to build<br><span class="py_key">myList</span>=[<span class="py_str">'Aacute'</span>, <span class="py_str">'aacute'</span>]<br> <br># search for glyphs related to glyphs in myList and add them to myList<br><span class="py_key">myList</span>=<span class="py_key">buildRelatedAccentList</span>(<span class="py_key">font</span>, <span class="py_key">myList</span>)+<span class="py_key">myList</span><br> <br># start the class<br><span class="py_key">at</span>=<span class="py_key">AccentTools</span>(<span class="py_key">font</span>, <span class="py_key">myList</span>)<br> <br># clear away any anchors that exist (this is optional)<br><span class="py_key">at</span>.<span class="py_key">clearAnchors</span>()<br> <br># add necessary anchors if you want to<br><span class="py_key">at</span>.<span class="py_key">buildAnchors</span>(<span class="py_key">ucXOffset</span>=<span class="py_num">20</span>, <span class="py_key">ucYOffset</span>=<span class="py_num">40</span>, <span class="py_key">lcXOffset</span>=<span class="py_num">15</span>, <span class="py_key">lcYOffset</span>=<span class="py_num">30</span>)<br> <br># print a report of any errors that occured<br><span class="py_key">at</span>.<span class="py_key">printAnchorErrors</span>()<br> <br># build the accented glyphs if you want to<br><span class="py_key">at</span>.<span class="py_key">buildAccents</span>()<br> <br># print a report of any errors that occured<br><span class="py_key">at</span>.<span class="py_key">printAccentErrors</span>()<br></pre></div><div class="pythonsourcetitle"><a href="examples/buildaccentsBuilder.py" target="new"><strong>➔ Download this.</strong></a></div>
+<h2>Building your own accentbuilders</h2>
+<p>
+	For typeface production it is a good idea to build a set of standardised tools with which you finalise the font data. Here's an example of a script which adds a standardised list of accents to a font. It does not do automatic anchor placement because the scripter wanted to do this manually. But the rest is done automatically. The script also deals correctly with smallcap glyphnames with .sc.
+</p>
+<div class="pythonsource"><pre># robofab manual<br># Buildingaccents howto<br>#&nbsp; &nbsp; attribute examples<br> <br><br># a script to generate all necessary accented characters.<br># this assumes all anchor points are set correctly.<br># including doublelayer accents. so, add anchorpoints <br># on the accents too!<br># (c) evb<br> <br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">world</span> <span class="py_res">import</span> <span class="py_key">CurrentFont</span><br><span class="py_res">from</span> <span class="py_key">robofab</span>.<span class="py_key">tools</span>.<span class="py_key">toolsAll</span> <span class="py_res">import</span> <span class="py_key">readGlyphConstructions</span><br> <br><span class="py_key">f</span> = <span class="py_key">CurrentFont</span>()<br> <br><span class="py_res">import</span> <span class="py_key">string</span><br> <br><span class="py_key">theList</span> = [<br>&nbsp; &nbsp; # caps<br>&nbsp; &nbsp; <span class="py_str">'AEacute'</span>,<br>&nbsp; &nbsp; <span class="py_str">'AEmacron'</span>,<br>&nbsp; &nbsp; <span class="py_str">'Aacute'</span>,<br>&nbsp; &nbsp; <span class="py_str">'Abreve'</span>,<br>&nbsp; &nbsp; # add all the accents you want in this list<br>]<br> <br><br><span class="py_key">con</span> = <span class="py_key">readGlyphConstructions</span>()<br><span class="py_key">theList</span>.<span class="py_key">sort</span>()<br> <br><span class="py_res">def</span> <span class="py_def">accentify</span>(<span class="py_key">f</span>, <span class="py_key">preflight</span>=<span class="py_key">False</span>):<br>&nbsp; &nbsp; <span class="py_res">print</span> <span class="py_str">'start accentification'</span>, <span class="py_key">f</span>.<span class="py_key">info</span>.<span class="py_key">fullName</span><br>&nbsp; &nbsp; <span class="py_key">slots</span> = <span class="py_key">con</span>.<span class="py_key">keys</span>()<br>&nbsp; &nbsp; <span class="py_key">slots</span>.<span class="py_key">sort</span>()<br>&nbsp; &nbsp; <span class="py_res">for</span> <span class="py_key">k</span> <span class="py_res">in</span> <span class="py_key">theList</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">if</span> <span class="py_key">k</span>[-<span class="py_num">3</span>:] <span class="py_res">in</span> [<span class="py_str">".sc"</span>]:<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">isSpecial</span> = <span class="py_key">True</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">tag</span> = <span class="py_key">k</span>[-<span class="py_num">3</span>:]<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">name</span> = <span class="py_key">k</span>[:-<span class="py_num">3</span>]<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">else</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">isSpecial</span> = <span class="py_key">False</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">tag</span> = <span class="py_str">""</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">name</span> = <span class="py_key">k</span><br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">parts</span> = <span class="py_key">con</span>.<span class="py_key">get</span>(<span class="py_key">name</span>, <span class="py_key">None</span>)<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">if</span> <span class="py_key">parts</span> <span class="py_res">is</span> <span class="py_key">None</span>:<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">print</span> <span class="py_key">k</span>, <span class="py_str">"not defined?"</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="py_res">continue</span><br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">base</span> = <span class="py_key">parts</span>[<span class="py_num">0</span>]<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">accents</span> = <span class="py_key">parts</span>[<span class="py_num">1</span>:]<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">f</span>.<span class="py_key">generateGlyph</span>(<span class="py_key">k</span>, <span class="py_key">preflight</span>=<span class="py_key">preflight</span>)<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">f</span>[<span class="py_key">k</span>].<span class="py_key">mark</span> = <span class="py_num">100</span> + <span class="py_key">randint</span>(-<span class="py_num">20</span>, <span class="py_num">20</span>)<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">f</span>[<span class="py_key">k</span>].<span class="py_key">autoUnicodes</span>()<br>&nbsp; &nbsp; &nbsp; &nbsp; <span class="py_key">f</span>[<span class="py_key">k</span>].<span class="py_key">update</span>()<br>&nbsp; &nbsp; <span class="py_key">f</span>.<span class="py_key">update</span>()<br> <br><span class="py_key">accentify</span>(<span class="py_key">f</span>)<br><span class="py_res">print</span> <span class="py_str">'done'</span><br> <br></pre></div><div class="pythonsourcetitle"><a href="examples/buildaccentsCustom.py" target="new"><strong>➔ Download this.</strong></a></div>
+</div>
+</body></html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+ 		RoboFab Read Me and installation notes 
+ 	</title>
+<link href="default.css" type="text/css" rel="stylesheet" />
+</head><body>
+	
+	
+
+	
+
+ 
+
+	<div id="modellogo">
+		<img src="img/drawmodel_header.jpg" width="595" height="112" />
+	</div>
+	<div class="leftcontent">
+		<p class="menu">
+			<a href="index.html">
+				Home
+			</a>
+			
+			 			
+		</p>
+		
+		<p class="menu">
+			<a href="howto/index.html">
+				How to's
+			</a>
+			<br />
+			<a href="talks09/index.html">
+				Step by step intro
+			</a>
+			<br />
+			<a href="objects/index.html">
+				Object reference
+			</a>
+
+		</p>
+
+
+
+
+ 
+
+
+
+
+
+
+	
+	
+	
+	
+
+
+ 
+
+ 
+
+
+	</div>
+	
+
+
+
+
+	
+	
+	<div class="content">
+		<h1>
+			RoboFab ReadMe and installation notes
+		</h1>
+
+		<ul>
+
+			<li>
+				March 1, 2009. Implements full support of the UFO2 specification.
+			</li>
+
+			<li>
+				November 18, 2007. License changed to <a href="http://www.opensource.org/licenses/bsd-license.php">The BSD License.</a>
+			</li>
+
+			<li>
+				May 30, 2007, updated some points.
+			</li>
+			<li>
+				v1.1.1 release September 9 2005 
+			</li>
+			<li>
+				v1.1 release February 7 2005 
+			</li>
+			<li>
+				v1.0b1 release October 6 2003 
+			</li>
+			<li>
+				September 14, 2003 
+			</li>
+			<li>
+				September 1, 2003 
+			</li>
+			<li>
+				July 27, 2003 
+			</li>
+		</ul>
+		
+		<p>
+			Note: from November 2007 on, the 1.1.1 version is now distributed with <a href="http://www.opensource.org/licenses/bsd-license.php">The BSD License.</a>. The license information in the current 1.1.1 package still needs to be updated.
+			</p>
+		
+		
+		<h2>
+			Which Python?
+		</h2>
+		<p>
+			RoboFab works with any Python 2.2.1 and up. 
+		</p>
+		<h3>
+			Which Python for FontLab?
+		</h3>
+		<p>
+		If you're using RoboFab in conjunction with FontLab, there are some restrictions imposed by FontLab's taste in Python. If you are using FontLab Studio in Mac OS X, you already have the necessary Python. If you are using anything previous to FontLab Studio on a Mac, you will need to install MacPython-OS9 2.3. FontLab on Windows requires at least Python 2.2.1.
+		</p>
+		
+
+		<h2>Installing on Mac OSX for FontLab, 1</h2>
+<p>
+	If you're on OSX Tiger (10.4) or Leopard (10.5), and  you want to install RoboFab and its dependencies (FontTools, Numeric), for use in FontLab 5.0x, then you can use the <a href="download/">RoboFab Installer for OSX, FontLab 5.0x</a>. This should work for most current users on OSX.
+	</p>
+
+		<h2>Installing on Mac OSX for FontLab, 2</h2>
+		<p>
+			If the all-in-one installer doesn't do it for you (for instance, you want to use RoboFab outside the context of FontLab) the following instructions show you the individual steps to install RoboFab. Currently Python,org already offers version 2.5. However, on MacOSX FontLab <b>will only work with the OS installed Python 2.3.</b> So there's not really much point in installing a newer Python if you don't know what you're doing.
+			</p>
+			
+		<p>
+			> How do I install Robofab for use with FS5 on mac?
+		</p>
+
+		<p>
+			The easiest way is to do the following:
+
+<ol>
+	<li>
+			Download RoboFab and put it wherever you want it to live on your
+			hard drive. Many people make a RoboFab folder in /Applications.
+	</li>
+	<li>
+			Go to your Applications/Utilities folder
+</li>
+<li>
+			Open Terminal
+</li>
+<li>
+			Once the terminal is open, type "python " (don't use the quotes,
+			but do put the space after "python")
+</li>
+<li>
+			Drag the install.py script from the RoboFab folder into the line
+			that you just typed in the terminal. It should now look something
+			like this (with your name, rather than Tinkywinky):
+
+			<p class="python_code">
+			python /Users/Tinkywinky/RoboFab_1/install.py
+			</p>
+			
+			Note: if you have installed newer (2.3+) versions of python, you need to explicitly tell with 
+		which version of Python you want to install. The command would look like this:
+
+		<p class="python_code">
+		python<b>2.3</b> /Users/Tinkywinky/RoboFab_1/install.py
+</p>
+
+</li>
+<li>
+			Hit the return key and the following should be printed in the
+			terminal:
+
+			<pre>
+Installing RoboFab: about to write a path to '/Users/Tinkywinky/RoboFab_1/
+Lib' in '/System/Library/Frameworks/Python.framework/Versions/2.3/lib/
+python2.3/site-packages/robofab.pth'...
+Robofab is now installed.
+(Note that you have to run the install script again if you move your
+RoboFab folder)
+			</pre>
+</li>
+
+<li>
+			Restart FontLab if you had it open during this process.
+</li>
+</ol>
+
+			This will install RoboFab for the system Python, which is what
+			FontLab Studio uses.
+		</p>
+					
+		
+	
+	</div>
+</body></html>
